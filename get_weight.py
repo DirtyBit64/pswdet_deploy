@@ -1,4 +1,4 @@
-# 简化权重
+# 简化中间权重
 import torch
 
 model = torch.load('./weights/epoch48.pt')
