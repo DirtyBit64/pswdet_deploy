@@ -14,4 +14,4 @@ pip install -r requirements.txt
 PRs accepted.
 
 ## License
-Nuist © ailab-cv
+**Nuist** © **ailab-cv**
