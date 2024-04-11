@@ -12,6 +12,7 @@ pip install -r requirements.txt
 
 ## Extended arguments
 - ```seg_filter``` : 是否启用分割过滤模块，若开启需将道路分割模型权重如pidnet.onnx置于```ultralytics/models/yolo/detect/roadseg/*.onnx```路径下
+- ```cls_filter``` : 是否启用分类过滤模块，若开启需将分类模型权重如psw64a.onnx置于```ultralytics/models/yolo/detect/clsfilter/*.onnx```路径下
 - ```save_if_box_father``` : 仅当```save=false```时，开启该参数有效，实现只保存检测出目标的结果集
 
 ## Contributing
