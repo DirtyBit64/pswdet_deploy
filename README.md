@@ -8,7 +8,7 @@ pip install -r requirements.txt
 
 ## :label: TODO 
 - [x] 添加分割过滤逻辑
-- [ ] 添加分类过滤逻辑
+- [x] 添加分类过滤逻辑
 
 ## Extended arguments
 - ```seg_filter``` : 是否启用分割过滤模块，若开启需将道路分割模型权重如pidnet.onnx置于```ultralytics/models/yolo/detect/roadseg/*.onnx```路径下

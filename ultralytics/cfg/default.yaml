@@ -111,6 +111,7 @@ copy_paste: 0.0  # (float) segment copy-paste (probability)
 # 自定义 config.yaml  -----------------------------------------------------------------
 cfg: # (str, optional) for overriding defaults.yaml
 seg_filter: False # 是否在检测后对检测框进行道路分割过滤
+cls_filter: False # 是否在检测后对检测框进行分类过滤
 save_if_box_father: False # 前提：arg.save -> 保存检测出有框的结果
 save_if_box: False # 用于权限校验，父参数生效才会用到
 

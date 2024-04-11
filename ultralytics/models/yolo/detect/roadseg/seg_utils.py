@@ -34,8 +34,10 @@ def seg_filter(boxes, orig_img, seg_model, prop):
             @boxes orig_img 经过nms后的检测结果
             @weight_path 分割权重类路径
     """
+    # 调整尺寸
+    img = np.resize(orig_img, (1080, 1920, 3))
     # 先将原图送入分割模型获得分割掩码
-    img = input_transform(orig_img)
+    img = input_transform(img)
     img = img.transpose((2, 0, 1)).copy()
     img = np.expand_dims(img, axis=0)  # 3维转4维
     # 推理

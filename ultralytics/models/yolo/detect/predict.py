@@ -5,6 +5,7 @@ from ultralytics.engine.results import Results
 from ultralytics.utils import ops
 
 from ultralytics.models.yolo.detect.roadseg.seg_utils import seg_filter
+from ultralytics.models.yolo.detect.filtlercls.cls_utils import cls_filter
 
 
 class DetectionPredictor(BasePredictor):
@@ -26,12 +27,13 @@ class DetectionPredictor(BasePredictor):
     # 记录单次检测过程中box数目
     box_count = 0
 
-    # 设置ONNX模型路径
-    ONNX_MODEL_PATH = 'ultralytics/models/yolo/detect/roadseg/pidnet.onnx'
-    # seg_model = load_pretrained(get_pred_model(name='s', num_classes=2),
-    #                             pretrained='ultralytics/models/yolo/detect/roadseg/pidnet.pt').cuda()
-    # 加载onnxruntime解释器
-    seg_model = onnxruntime.InferenceSession(ONNX_MODEL_PATH, None,
+    # 初始化加载分割模型
+    SEG_ONNX_MODEL_PATH = 'ultralytics/models/yolo/detect/roadseg/pidnet.onnx'
+    seg_model = onnxruntime.InferenceSession(SEG_ONNX_MODEL_PATH, None,
+                                             providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
+    # 初始化加载分类模型
+    CLS_ONNX_MODEL_PATH = 'ultralytics/models/yolo/detect/filtlercls/psw64a.onnx'
+    cls_model = onnxruntime.InferenceSession(CLS_ONNX_MODEL_PATH, None,
                                              providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
     ###########################################
 
@@ -56,6 +58,10 @@ class DetectionPredictor(BasePredictor):
             # 采用道路分割掩码对nms后的预测框进行二次过滤
             if self.args.seg_filter and pred.shape[0] != 0:
                 pred = seg_filter(pred, orig_img, self.seg_model, prop=0.8)
+
+            # 利用分类过滤模型对nms后的预测框进行二次过滤
+            if self.args.cls_filter and pred.shape[0] != 0:
+                pred = cls_filter(self.cls_model, pred, orig_img, 0.5)
 
             # 检测框计数
             self.box_count += pred.shape[0]
