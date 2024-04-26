@@ -61,7 +61,7 @@ class DetectionPredictor(BasePredictor):
 
             # 利用分类过滤模型对nms后的预测框进行二次过滤
             if self.args.cls_filter and pred.shape[0] != 0:
-                pred = cls_filter(self.cls_model, pred, orig_img, 0.5)
+                pred = cls_filter(self.cls_model, pred, orig_img, proportion=0.2)
 
             # 检测框计数
             self.box_count += pred.shape[0]

@@ -2,6 +2,8 @@
 # Written by ljx ---- 2024.4.9
 # ------------------------------------------------------------------------------
 import math
+
+import cv2
 import numpy as np
 import torch
 
@@ -42,8 +44,8 @@ def cls_filter(model, boxes, orig_img, proportion):
 
         # 裁剪原图
         image = orig_img[y1:y2, x1:x2, :]
-        # TODO 预处理  onnx推理结果与pth结果不匹配
-        image = np.resize(image, (64, 64, 3))
+        image = cv2.resize(image, (64, 64))  # 与导出参数对齐
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = input_transform(image)
         image = image.transpose((2, 0, 1))
         image = np.expand_dims(image, axis=0)  # 3维转4维

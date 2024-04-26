@@ -2,6 +2,8 @@
 # Written by ljx ---- 2024.2.1
 # ------------------------------------------------------------------------------
 import math
+
+import cv2
 import numpy as np
 import torch
 from PIL import Image
@@ -35,7 +37,10 @@ def seg_filter(boxes, orig_img, seg_model, prop):
             @weight_path 分割权重类路径
     """
     # 调整尺寸
-    img = np.resize(orig_img, (1080, 1920, 3))
+    # img = np.resize(orig_img, (1080, 1920, 3))
+    # opencv - resize
+    img = cv2.resize(orig_img, (1920, 1080))
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     # 先将原图送入分割模型获得分割掩码
     img = input_transform(img)
     img = img.transpose((2, 0, 1)).copy()
