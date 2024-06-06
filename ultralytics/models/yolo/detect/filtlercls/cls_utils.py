@@ -2,6 +2,7 @@
 # Written by ljx ---- 2024.4.9
 # ------------------------------------------------------------------------------
 import math
+import os.path
 
 import cv2
 import numpy as np
@@ -33,13 +34,12 @@ def cls_filter(model, boxes, orig_img, proportion):
     # 将检测框Tensor变量转为Numpy数组
     boxes_np = boxes.cpu().numpy()
     for box_np in boxes_np:
-        x_center, y_center, width, height, _, _ = map(int, box_np)
 
         # 将YOLO格式坐标转换为边界框左上角和右下角的坐标
         # 获取像素坐标
         x1 = math.ceil(box_np[0])
-        x2 = math.ceil(box_np[2])
         y1 = math.ceil(box_np[1])
+        x2 = math.ceil(box_np[2])
         y2 = math.ceil(box_np[3])
 
         # 裁剪原图
@@ -60,6 +60,10 @@ def cls_filter(model, boxes, orig_img, proportion):
             if maxsy != 1 and (cls_res[maxsy] > proportion):
                 boxes_np = np.delete(boxes_np, r, axis=0)
                 continue
+            ################################ FOR DEBUG
+            # path = os.path.join('bugorig', str(cls_res[1]) + '.jpg')
+            # cv2.imwrite(path, orig_img)
+            ################################
             r += 1
 
     return torch.tensor(boxes_np).cuda()

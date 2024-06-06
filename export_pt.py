@@ -7,7 +7,7 @@ from ultralytics import YOLO
 
 import torch.nn
 
-model = torch.load(r'D:\CV\PJclassfy\weights\psw64b.pth', map_location='cuda')
+model = torch.load(r'D:\CV\PJclassfy\weights\17_res.pth', map_location='cuda')
 model.to('cuda')
 model.eval()
 
@@ -17,4 +17,4 @@ output_names = ['output']
 
 x = torch.randn(1, 3, 64, 64, requires_grad=True).to('cuda')
 
-torch.onnx.export(model, x, 'weights/psw64b.onnx', input_names=input_names, output_names=output_names, verbose='True')
+torch.onnx.export(model, x, 'weights/test1.onnx', input_names=input_names, output_names=output_names, verbose='True')
