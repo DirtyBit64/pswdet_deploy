@@ -11,6 +11,9 @@ pip install -r requirements.txt
 - [x] 添加分类过滤逻辑
 - [x] 添加时序过滤逻辑
 
+## weight
+[here](http://116.198.230.68:8090/archives/pswdet)
+
 ## Extended arguments
 - ```seg_filter``` : 是否启用分割过滤模块，若开启需将道路分割模型权重如pidnet.onnx置于```ultralytics/models/yolo/detect/roadseg/*.onnx```路径下
 - ```cls_filter``` : 是否启用分类过滤模块，若开启需将分类模型权重如psw64a.onnx置于```ultralytics/models/yolo/detect/clsfilter/*.onnx```路径下
