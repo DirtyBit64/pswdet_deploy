@@ -12,7 +12,8 @@ pip install -r requirements.txt
 - [x] 添加时序过滤逻辑
 
 ## weight
-[here](http://116.198.230.68:8090/archives/pswdet)
+通过网盘分享的文件：pswdet.zip
+链接: https://pan.baidu.com/s/19SeaxRw4KzLMsIMG6kPzrQ?pwd=3456 提取码: 3456 复制这段内容后打开百度网盘手机App，操作更方便哦
 
 ## Extended arguments
 - ```seg_filter``` : 是否启用分割过滤模块，若开启需将道路分割模型权重如pidnet.onnx置于```ultralytics/models/yolo/detect/roadseg/*.onnx```路径下
